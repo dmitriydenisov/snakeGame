@@ -68,3 +68,36 @@ function drawGameMap (map) {
         drawRect(param)
     }
 }
+
+function getCell (x, y) {
+    if(x < 0){
+        x += COLUMNS
+    }
+    if(x > 0){
+        x -= COLUMNS
+    }
+
+    if(y < 0){
+        y += ROWS
+    }
+    if(y > 0){
+        y -= ROWS
+    }
+
+    for (const cell of map.flat()){
+        if (cell.x === x && cell.y === y){
+            return cell
+        }
+    }
+}
+
+function moveSnake (){
+    if(snakeDirect === 'left'){
+        const cell = getCell(snake[0].x - 1, snake[0].y)
+
+        snake[0].snake = false
+        cell.snake = true
+
+        snake[0] = cell
+    }
+}

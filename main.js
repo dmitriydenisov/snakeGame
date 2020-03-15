@@ -1,5 +1,6 @@
 const ROWS = 10
 const COLUMNS = 10
+const COOLDOWN = 1000
 
 const CELL_SIZE = 50
 const CELL_MARGIN = 2
@@ -18,12 +19,17 @@ canvas.height = CELL_SIZE * ROWS + (ROWS - 1) * CELL_MARGIN + 2 * GAME_PADDING
 const map = creatGameMap(COLUMNS, ROWS)
 
 getRandomFreeCell(map).food = true
-getRandomFreeCell(map).snake = true
+
+const snake = [getRandomFreeCell(map)]
+snake[0].snake = true
+
+let snakeDirect = 'left'
 
 
 //регистрация функции к следующему моменту обновлению монитоара
 requestAnimationFrame(loop)
 
+let prevTick = 0
 
 function loop (timestamp){
     //зацикливание вызова функции
@@ -31,5 +37,11 @@ function loop (timestamp){
     
     clearCanvas()
 
+    if (prevTick + COOLDOWN <= timestamp) {
+        moveSnake() 
+        prevTick = timestamp
+    }
+
+  
     drawGameMap(map)
 }
