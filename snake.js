@@ -18,11 +18,32 @@ function creatGameMap (columns, rows) {
     for ( x = 0; x < columns; x++){
         const row = []
 
-        for (let y = 0; y < rows; i++){
-            row.push({})
+        for (let y = 0; y < rows; y++){
+            row.push({
+                x: x,
+                y: y,
+                snake: false,
+                food: false
+            })
         }
         map.push(row)
     }
     return map
+}
 
+function getRandomFreeCell () {
+    const freeCells = []
+
+    //проходим по всем элементам массива
+    for ( const cell of map.flat() ) {
+        //если в клетке есть змаея или еда, то мы прерывам выполнение цикла
+        if (cell.snake || cell.food) {
+            continue
+        }
+        // если при прохождении цикла мы получаем cell.snake = false и cell.food = false то мы получаем пустую ячейку  
+        freeCells.push(cell)
+    }
+
+    const index = Math.floor(Math.random() * freeCells.length)
+    return freeCells[index]
 }
