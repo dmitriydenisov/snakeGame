@@ -2,7 +2,7 @@
 function drawRect (param){
     context.beginPath()
     context.rect(param.x, param.y, param.width, param.height)
-    context.fillStyle= param.fiiiColor
+    context.fillStyle= param.fillColor
     context.fill()
 }
 
@@ -46,4 +46,25 @@ function getRandomFreeCell () {
 
     const index = Math.floor(Math.random() * freeCells.length)
     return freeCells[index]
+}
+
+function drawGameMap (map) {
+    for(const cell of map.flat()){
+        const param = {
+            x: GAME_PADDING + cell.x * (CELL_SIZE + CELL_MARGIN),
+            y: GAME_PADDING + cell.y * (CELL_SIZE + CELL_MARGIN),
+            width: CELL_SIZE,
+            height: CELL_SIZE,
+            fillColor: FREE_COLOR
+        }
+
+        if(cell.food){
+            param.fillColor = FOOD_COLOR
+        }
+        if(cell.snake){
+            param.fillColor = SNAKE_COLOR
+        }
+
+        drawRect(param)
+    }
 }

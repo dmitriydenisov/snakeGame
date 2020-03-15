@@ -1,17 +1,24 @@
+const ROWS = 10
+const COLUMNS = 10
+
+const CELL_SIZE = 50
+const CELL_MARGIN = 2
+const GAME_PADDING = 5
+
+const FOOD_COLOR = 'green'
+const SNAKE_COLOR =  'gray'
+const FREE_COLOR = 'rgb(240, 240, 240)'
+
 const canvas  = document.querySelector('canvas')
 const context = canvas.getContext('2d')
 
-canvas.width = 500
-canvas.height = 500
+canvas.width = CELL_SIZE * COLUMNS + (COLUMNS - 1) * CELL_MARGIN + 2 * GAME_PADDING
+canvas.height = CELL_SIZE * ROWS + (ROWS - 1) * CELL_MARGIN + 2 * GAME_PADDING
 
-const param = {
-    x: 10,
-    y: 10,
-    width: 50,
-    height: 50,
-    fiiiColor:"green"
-}
+const map = creatGameMap(COLUMNS, ROWS)
 
+getRandomFreeCell(map).food = true
+getRandomFreeCell(map).snake = true
 
 
 //регистрация функции к следующему моменту обновлению монитоара
@@ -24,8 +31,5 @@ function loop (timestamp){
     
     clearCanvas()
 
-    param.x += 1
-    param.y += 1
-
-    drawRect(param)
+    drawGameMap(map)
 }
