@@ -73,14 +73,14 @@ function getCell (x, y) {
     if(x < 0){
         x += COLUMNS
     }
-    if(x > 0){
+    if(x > COLUMNS){
         x -= COLUMNS
     }
 
     if(y < 0){
         y += ROWS
     }
-    if(y > 0){
+    if(y > ROWS){
         y -= ROWS
     }
 
