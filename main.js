@@ -20,7 +20,7 @@ const map = creatGameMap(COLUMNS, ROWS)
 
 getRandomFreeCell(map).food = true
 
-const snake = [getRandomFreeCell(map)]
+const snake = [getRandomFreeCell(map)] 
 snake[0].snake = true
 
 let snakeDirect = 'down'

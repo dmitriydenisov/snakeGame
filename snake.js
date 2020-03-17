@@ -45,7 +45,7 @@ function getRandomFreeCell () {
     }
 
     const index = Math.floor( Math.random() * freeCells.length )
-    return freeCells[ index ]
+    return freeCells[ index ] 
 }
 
 function drawGameMap ( map ) {
