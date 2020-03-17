@@ -23,7 +23,7 @@ getRandomFreeCell(map).food = true
 const snake = [getRandomFreeCell(map)] 
 snake[0].snake = true
 
-let snakeDirect = 'down'
+let snakeDirect = ''
 
 
 //регистрация функции к следующему моменту обновлению монитоара
@@ -45,3 +45,17 @@ function loop (timestamp){
   
     drawGameMap(map)
 }
+
+document.addEventListener("keydown", function ( event ) {
+    if ( event.key === "ArrowUp" ) {
+        snakeDirect = 'top'
+    } else if ( event.key === "ArrowDown" ) {
+        snakeDirect = 'down'
+    } else if ( event.key === "ArrowLeft" ) {
+        snakeDirect = 'left'
+    } else if ( event.key === "ArrowUp" ) {
+        snakeDirect = 'top'
+    } else if ( event.key === "ArrowRight" ) {
+        snakeDirect = 'right'
+    }
+})
