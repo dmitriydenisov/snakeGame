@@ -1,6 +1,6 @@
 const ROWS = 10
 const COLUMNS = 10
-const COOLDOWN = 1000
+const COOLDOWN = 250
 
 const CELL_SIZE = 50
 const CELL_MARGIN = 2
@@ -23,7 +23,7 @@ getRandomFreeCell(map).food = true
 const snake = [getRandomFreeCell(map)]
 snake[0].snake = true
 
-let snakeDirect = 'left'
+let snakeDirect = 'down'
 
 
 //регистрация функции к следующему моменту обновлению монитоара
