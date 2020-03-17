@@ -22,7 +22,7 @@ function creatGameMap ( columns, rows ) {
             row.push({
                 x: x,
                 y: y,
-                snake: false,
+                snake: false, 
                 food: false
             })
         }
