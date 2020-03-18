@@ -1,12 +1,11 @@
 
 function drawRect ( param ){
-    context.beginPath()
-    context.rect( param.x, param.y, param.width, param.height )
+    context.beginPath() //рисуем нову фигуру
+    context.rect( param.x, param.y, param.width, param.height ) //обозначаем прямоугольник
     context.fillStyle= param.fillColor
     context.fill()
 }
 
-//функция очистки Canvas перед созданием нового квадрата
 function clearCanvas () {
     context.clearRect( 0, 0, canvas.width, canvas.height )
 }

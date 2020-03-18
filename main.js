@@ -1,17 +1,17 @@
-const ROWS = 10
-const COLUMNS = 10
-const COOLDOWN = 250
+const ROWS = 10 
+const COLUMNS = 10 
+const COOLDOWN = 250 
 
-const CELL_SIZE = 50
-const CELL_MARGIN = 2
-const GAME_PADDING = 5
+const CELL_SIZE = 50 
+const CELL_MARGIN = 2 
+const GAME_PADDING = 5 
 
-const FOOD_COLOR = 'green'
-const SNAKE_COLOR =  'gray'
-const FREE_COLOR = 'rgb(240, 240, 240)'
+const FOOD_COLOR = 'green' 
+const SNAKE_COLOR =  'gray' 
+const FREE_COLOR = 'rgb(240, 240, 240)' 
 
-const canvas  = document.querySelector('canvas')
-const context = canvas.getContext('2d')
+const canvas  = document.querySelector('canvas') 
+const context = canvas.getContext('2d') 
 
 canvas.width = CELL_SIZE * COLUMNS + (COLUMNS - 1) * CELL_MARGIN + 2 * GAME_PADDING
 canvas.height = CELL_SIZE * ROWS + (ROWS - 1) * CELL_MARGIN + 2 * GAME_PADDING
@@ -26,13 +26,13 @@ snake[0].snake = true
 let snakeDirect = ''
 
 
-//регистрация функции к следующему моменту обновлению монитоара
+//обновление изменения изображения при обновлении экрана
 requestAnimationFrame(loop)
 
 let prevTick = 0
 
 function loop (timestamp){
-    //зацикливание вызова функции
+    //зацикливание обновления
     requestAnimationFrame(loop)
     
     clearCanvas()
@@ -58,4 +58,4 @@ document.addEventListener("keydown", function ( event ) {
     } else if ( event.key === "ArrowRight" ) {
         snakeDirect = 'right'
     }
-})
+}) 
