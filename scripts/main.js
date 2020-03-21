@@ -21,7 +21,7 @@ const map = creatGameMap(COLUMNS, ROWS)
 getRandomFreeCell(map).food = true
 
 const cell = getRandomFreeCell(map)
-const snake = [cell, cell, cell]
+const snake = [cell, cell, cell, cell, cell, cell, cell, cell, cell, cell, cell]
 
 cell.snake = true
 
@@ -35,6 +35,7 @@ let snakeDirect = 'top'
 requestAnimationFrame(loop)
 
 let prevTick = 0
+let play = true
 
 function loop (timestamp){
     //зацикливание обновления
@@ -42,7 +43,7 @@ function loop (timestamp){
     
     clearCanvas()
 
-    if (prevTick + COOLDOWN <= timestamp) {
+    if (prevTick + COOLDOWN <= timestamp && play) {
         prevTick = timestamp
 
         moveSnake()
@@ -54,6 +55,20 @@ function loop (timestamp){
             snake.push(tails)
 
             getRandomFreeCell(map).food = true
+        }
+
+        //проверка пересечения головы и тела змейки
+
+        let isEnd = false
+        for ( let i = 1; i < snake.length; i++ ) {
+            if ( snake[i] === snake[0] ) {
+                isEnd = true
+                break
+            }
+        }
+        if (isEnd) {
+            alert("Конец игры!")
+            play = false
         }
     }
 
