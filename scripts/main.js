@@ -43,8 +43,16 @@ function loop (timestamp){
     clearCanvas()
 
     if (prevTick + COOLDOWN <= timestamp) {
-        moveSnake() 
         prevTick = timestamp
+
+        moveSnake()
+        const head = snake[0]
+        const tails = snake[snake.length - 1]
+        
+        if ( head.food){
+            head.food = false
+            snake.push(tails)
+        }
     }
 
   
