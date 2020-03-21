@@ -29,6 +29,7 @@ cell.snake = true
 snake[0].snake = true
 
 let snakeDirect = 'top'
+let nextSnakeDirect = 'top'
 
 
 //обновление изменения изображения при обновлении экрана
@@ -46,6 +47,7 @@ function loop (timestamp){
     if (prevTick + COOLDOWN <= timestamp && play) {
         prevTick = timestamp
 
+        snakeDirect = nextSnakeDirect
         moveSnake()
         const head = snake[0]
         const tails = snake[snake.length - 1]
@@ -79,19 +81,19 @@ function loop (timestamp){
 document.addEventListener("keydown", function ( event ) {
     if ( event.key === "ArrowUp" ) {
         if ( snake.length === 1 || snakeDirect === "left" || snakeDirect === "right" ){
-            snakeDirect = 'top' 
+            nextSnakeDirect = 'top' 
         }
            } else if ( event.key === "ArrowDown" ) {
         if (snake.length === 1 || snakeDirect === "left" || snakeDirect === "right" ){
-            snakeDirect = 'down'
+            nextSnakeDirect = 'down'
         }
             } else if ( event.key === "ArrowLeft" ) {
         if (snake.length === 1 || snakeDirect === "top" || snakeDirect === "down" ){
-            snakeDirect = 'left'
+            nextSnakeDirect = 'left'
         }
             } else if ( event.key === "ArrowRight" ) {
         if (snake.length === 1 || snakeDirect === "top" || snakeDirect === "down" ){
-            snakeDirect = 'right'
+            nextSnakeDirect = 'right'
         }
         
     }
