@@ -1,7 +1,7 @@
 
 function drawRect ( param ){
-    context.beginPath() //рисуем нову фигуру
-    context.rect( param.x, param.y, param.width, param.height ) //обозначаем прямоугольник
+    context.beginPath() 
+    context.rect( param.x, param.y, param.width, param.height ) 
     context.fillStyle= param.fillColor
     context.fill()
 }
@@ -10,7 +10,7 @@ function clearCanvas () {
     context.clearRect( 0, 0, canvas.width, canvas.height )
 }
 
-//в функцию creatGameMap передаются два элемента  columns и rows
+
 function creatGameMap ( columns, rows ) {
     const map = []
 
@@ -33,13 +33,12 @@ function creatGameMap ( columns, rows ) {
 function getRandomFreeCell () {
     const freeCells = []
 
-    //проходим по всем элементам массива
-    for ( const cell of map.flat() ) {
-        //если в клетке есть змаея или еда, то мы прерывам выполнение цикла
+       for ( const cell of map.flat() ) {
+        
         if ( cell.snake || cell.food ) {
             continue
         }
-        // если при прохождении цикла мы получаем cell.snake = false и cell.food = false то мы получаем пустую ячейку  
+         
         freeCells.push( cell )
     }
 
@@ -91,6 +90,11 @@ function getCell ( x, y ) {
 }
 
 function moveSnake (){
+
+    for(let i = snake.length - 1; i > 0; i--){
+        snake[i] = snake[i - 1]
+    }
+
     if( snakeDirect === 'left' ){
 
         snake[0] = getCell( snake[0].x - 1, snake[0].y )

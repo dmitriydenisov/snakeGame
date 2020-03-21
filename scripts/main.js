@@ -20,10 +20,15 @@ const map = creatGameMap(COLUMNS, ROWS)
 
 getRandomFreeCell(map).food = true
 
-const snake = [getRandomFreeCell(map)] 
+const cell = getRandomFreeCell(map)
+const snake = [cell, cell, cell]
+
+cell.snake = true
+
+ 
 snake[0].snake = true
 
-let snakeDirect = ''
+let snakeDirect = 'top'
 
 
 //обновление изменения изображения при обновлении экрана
@@ -48,14 +53,21 @@ function loop (timestamp){
 
 document.addEventListener("keydown", function ( event ) {
     if ( event.key === "ArrowUp" ) {
-        snakeDirect = 'top'
-    } else if ( event.key === "ArrowDown" ) {
-        snakeDirect = 'down'
-    } else if ( event.key === "ArrowLeft" ) {
-        snakeDirect = 'left'
-    } else if ( event.key === "ArrowUp" ) {
-        snakeDirect = 'top'
-    } else if ( event.key === "ArrowRight" ) {
-        snakeDirect = 'right'
+        if ( snake.length === 1 || snakeDirect === "left" || snakeDirect === "right" ){
+            snakeDirect = 'top' 
+        }
+           } else if ( event.key === "ArrowDown" ) {
+        if (snake.length === 1 || snakeDirect === "left" || snakeDirect === "right" ){
+            snakeDirect = 'down'
+        }
+            } else if ( event.key === "ArrowLeft" ) {
+        if (snake.length === 1 || snakeDirect === "top" || snakeDirect === "down" ){
+            snakeDirect = 'left'
+        }
+            } else if ( event.key === "ArrowRight" ) {
+        if (snake.length === 1 || snakeDirect === "top" || snakeDirect === "down" ){
+            snakeDirect = 'right'
+        }
+        
     }
 }) 
