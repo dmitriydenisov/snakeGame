@@ -1,6 +1,7 @@
 const ROWS = 10 
 const COLUMNS = 10 
-const COOLDOWN = 250 
+const START_COOLDOWN = 250 
+const LEVEL_COOLDOWN = 5
 
 const CELL_SIZE = 50 
 const CELL_MARGIN = 2 
@@ -37,6 +38,7 @@ requestAnimationFrame(loop)
 
 let prevTick = 0
 let play = true
+let cooldown = START_COOLDOWN
 
 function loop (timestamp){
     //зацикливание обновления
@@ -44,7 +46,7 @@ function loop (timestamp){
     
     clearCanvas()
 
-    if (prevTick + COOLDOWN <= timestamp && play) {
+    if (prevTick + cooldown <= timestamp && play) {
         prevTick = timestamp
 
         snakeDirect = nextSnakeDirect
@@ -57,6 +59,7 @@ function loop (timestamp){
             snake.push(tails)
 
             getRandomFreeCell(map).food = true
+            cooldown -= LEVEL_COOLDOWN
         }
 
         //проверка пересечения головы и тела змейки
