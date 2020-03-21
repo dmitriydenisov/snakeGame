@@ -52,6 +52,8 @@ function loop (timestamp){
         if ( head.food){
             head.food = false
             snake.push(tails)
+
+            getRandomFreeCell(map).food = true
         }
     }
 
