@@ -1,17 +1,18 @@
-const ROWS = 10
-const COLUMNS = 10
-const COOLDOWN = 250
+const ROWS = 10 
+const COLUMNS = 10 
+const START_COOLDOWN = 250 
+const LEVEL_COOLDOWN = 5
 
-const CELL_SIZE = 50
-const CELL_MARGIN = 2
-const GAME_PADDING = 5
+const CELL_SIZE = 50 
+const CELL_MARGIN = 2 
+const GAME_PADDING = 5 
 
-const FOOD_COLOR = 'green'
-const SNAKE_COLOR =  'gray'
-const FREE_COLOR = 'rgb(240, 240, 240)'
+const FOOD_COLOR = 'green' 
+const SNAKE_COLOR =  'gray' 
+const FREE_COLOR = 'rgb(240, 240, 240)' 
 
-const canvas  = document.querySelector('canvas')
-const context = canvas.getContext('2d')
+const canvas  = document.querySelector('canvas') 
+const context = canvas.getContext('2d') 
 
 canvas.width = CELL_SIZE * COLUMNS + (COLUMNS - 1) * CELL_MARGIN + 2 * GAME_PADDING
 canvas.height = CELL_SIZE * ROWS + (ROWS - 1) * CELL_MARGIN + 2 * GAME_PADDING
@@ -20,26 +21,60 @@ const map = creatGameMap(COLUMNS, ROWS)
 
 getRandomFreeCell(map).food = true
 
-const snake = [getRandomFreeCell(map)] 
+const cell = getRandomFreeCell(map)
+const snake = [cell, cell, cell, cell, cell, cell, cell, cell, cell, cell, cell]
+
+cell.snake = true
+
+ 
 snake[0].snake = true
 
-let snakeDirect = ''
+let snakeDirect = 'top'
+let nextSnakeDirect = 'top'
 
 
-//регистрация функции к следующему моменту обновлению монитоара
+//обновление изменения изображения при обновлении экрана
 requestAnimationFrame(loop)
 
 let prevTick = 0
+let play = true
+let cooldown = START_COOLDOWN
 
 function loop (timestamp){
-    //зацикливание вызова функции
+    //зацикливание обновления
     requestAnimationFrame(loop)
     
     clearCanvas()
 
-    if (prevTick + COOLDOWN <= timestamp) {
-        moveSnake() 
+    if (prevTick + cooldown <= timestamp && play) {
         prevTick = timestamp
+
+        snakeDirect = nextSnakeDirect
+        moveSnake()
+        const head = snake[0]
+        const tails = snake[snake.length - 1]
+        
+        if ( head.food){
+            head.food = false
+            snake.push(tails)
+
+            getRandomFreeCell(map).food = true
+            cooldown -= LEVEL_COOLDOWN
+        }
+
+        //проверка пересечения головы и тела змейки
+
+        let isEnd = false
+        for ( let i = 1; i < snake.length; i++ ) {
+            if ( snake[i] === snake[0] ) {
+                isEnd = true
+                break
+            }
+        }
+        if (isEnd) {
+            alert("Конец игры!")
+            play = false
+        }
     }
 
   
@@ -48,14 +83,21 @@ function loop (timestamp){
 
 document.addEventListener("keydown", function ( event ) {
     if ( event.key === "ArrowUp" ) {
-        snakeDirect = 'top'
-    } else if ( event.key === "ArrowDown" ) {
-        snakeDirect = 'down'
-    } else if ( event.key === "ArrowLeft" ) {
-        snakeDirect = 'left'
-    } else if ( event.key === "ArrowUp" ) {
-        snakeDirect = 'top'
-    } else if ( event.key === "ArrowRight" ) {
-        snakeDirect = 'right'
+        if ( snake.length === 1 || snakeDirect === "left" || snakeDirect === "right" ){
+            nextSnakeDirect = 'top' 
+        }
+           } else if ( event.key === "ArrowDown" ) {
+        if (snake.length === 1 || snakeDirect === "left" || snakeDirect === "right" ){
+            nextSnakeDirect = 'down'
+        }
+            } else if ( event.key === "ArrowLeft" ) {
+        if (snake.length === 1 || snakeDirect === "top" || snakeDirect === "down" ){
+            nextSnakeDirect = 'left'
+        }
+            } else if ( event.key === "ArrowRight" ) {
+        if (snake.length === 1 || snakeDirect === "top" || snakeDirect === "down" ){
+            nextSnakeDirect = 'right'
+        }
+        
     }
-})
+}) 
