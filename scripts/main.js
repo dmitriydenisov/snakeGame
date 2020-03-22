@@ -41,7 +41,7 @@ let play = true
 let cooldown = START_COOLDOWN
 
 function loop (timestamp){
-    
+    //зацикливание обновления
     requestAnimationFrame(loop)
     
     clearCanvas()

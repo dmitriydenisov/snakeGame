@@ -120,4 +120,4 @@ function moveSnake (){
     for ( const cell of snake ) {
         cell.snake = true
     }
-} 
+}
