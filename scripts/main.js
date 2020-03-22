@@ -17,12 +17,12 @@ const context = canvas.getContext('2d')
 canvas.width = CELL_SIZE * COLUMNS + (COLUMNS - 1) * CELL_MARGIN + 2 * GAME_PADDING
 canvas.height = CELL_SIZE * ROWS + (ROWS - 1) * CELL_MARGIN + 2 * GAME_PADDING
 
-const map = creatGameMap(COLUMNS, ROWS)
+let map = creatGameMap(COLUMNS, ROWS)
 
 getRandomFreeCell(map).food = true
 
 const cell = getRandomFreeCell(map)
-const snake = [cell, cell, cell, cell, cell, cell, cell, cell, cell, cell, cell]
+let snake = [cell]
 
 cell.snake = true
 
@@ -63,23 +63,28 @@ function loop (timestamp){
         }
 
         //проверка пересечения головы и тела змейки
-
-        let isEnd = false
-        for ( let i = 1; i < snake.length; i++ ) {
-            if ( snake[i] === snake[0] ) {
-                isEnd = true
-                break
+        else {
+            let isEnd = false
+            for ( let i = 1; i < snake.length; i++ ) {
+                if ( snake[i] === snake[0] ) {
+                    isEnd = true
+                    break
+                }
+            }
+            if (isEnd) {
+                play = false
             }
         }
-        if (isEnd) {
-            alert("Конец игры!")
-            play = false
-        }
+        
+        
     }
-
-  
+    
     drawGameMap(map)
     showState()
+
+    if (!play) {        
+        drawPaused()
+    }
 }
 
 document.addEventListener("keydown", function ( event ) {
@@ -100,5 +105,11 @@ document.addEventListener("keydown", function ( event ) {
             nextSnakeDirect = 'right'
         }
         
+    } else if (event.key === 'Enter') {
+        if (play) {
+            return
+        }
+
+        init()
     }
 }) 

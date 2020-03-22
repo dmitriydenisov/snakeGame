@@ -124,7 +124,41 @@ function moveSnake (){
 
 function showState () {
     context.font = "20px Arial"
-    context.fillStyle = "black"
+    context.fillStyle = "black"    
+    context.textAlign = "left"
     context.fillText(`cooldown: ${cooldown}`, 10, 30)
     context.fillText(`Очки: ${snake.length * 5}`, 10, 50)
+}
+
+function drawPaused () {
+    context.beginPath()
+    context.rect(0, 0, canvas.width, canvas.height)
+    context.fillStyle = 'rgba( 255, 255, 255, 0.7'
+    context.fill()
+
+    context.font = "50px Arial"
+    context.fillStyle = "black"
+    context.textAlign = "center"
+    context.fillText(`Ваш счет: ${snake.length * 5}`, canvas.width / 2, canvas.height / 2)
+
+    context.font = "25px Arial"
+    context.fillText(`Нажмите Enter тобы начать сначала`, canvas.width / 2, canvas.height / 2 + 30)
+}
+
+function init () {
+    const cell = getRandomFreeCell(map)
+
+    map = creatGameMap(COLUMNS, ROWS)
+
+    snake = [cell]
+
+    cell.snake = true
+
+    snake[0].snake = true
+
+    snakeDirect = 'top'
+    nextSnakeDirect = 'top'
+    play = true
+    cooldown = START_COOLDOWN
+    getRandomFreeCell(map).food = true
 }
