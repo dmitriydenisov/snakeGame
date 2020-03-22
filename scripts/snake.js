@@ -120,4 +120,11 @@ function moveSnake (){
     for ( const cell of snake ) {
         cell.snake = true
     }
-} 
+}
+
+function showState () {
+    context.font = "20px Arial"
+    context.fillStyle = "black"
+    context.fillText(`cooldown: ${cooldown}`, 10, 30)
+    context.fillText(`Очки: ${snake.length * 5}`, 10, 50)
+}

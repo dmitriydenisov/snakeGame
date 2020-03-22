@@ -1,7 +1,7 @@
 const ROWS = 10 
 const COLUMNS = 10 
 const START_COOLDOWN = 250 
-const LEVEL_COOLDOWN = 5
+const LEVEL_COOLDOWN = 20
 
 const CELL_SIZE = 50 
 const CELL_MARGIN = 2 
@@ -41,7 +41,7 @@ let play = true
 let cooldown = START_COOLDOWN
 
 function loop (timestamp){
-    
+    //зацикливание обновления
     requestAnimationFrame(loop)
     
     clearCanvas()
@@ -79,6 +79,7 @@ function loop (timestamp){
 
   
     drawGameMap(map)
+    showState()
 }
 
 document.addEventListener("keydown", function ( event ) {
